@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<button onclick="getLocation()">获取定位</button>
+		<script>
+			function getLocation(){
+				//获取geolocation对象
+			let geo=navigator.geolocation;
+			//调用方法getCurrentPosition()
+			geo.getCurrentPosition((position)=>{
+				//获取geolocationcoordinates对象
+				let coords=position.coords;
+				//经度，维度
+				console.log(coords.longitude,coords.latitude)
+				console.log(position)
+			},
+			error=>{
+				console.log(error);
+			},
+			{
+				time
+			}
+			)
+			console.log('111')
+			}
+		</script>
+	</body>
+</html>

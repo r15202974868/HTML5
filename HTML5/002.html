@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<style>
+			.canvas{
+				border:1px solid #0AA1EB;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas  class="canvas"></canvas>
+		<script>
+			let dataset=[
+				{
+					label:'服装',
+					value:300
+				},
+				{
+					label:'护肤',
+					value:400
+				},
+				{
+					label:'包包',
+					value:360
+				},
+				{
+					label:'运动',
+					value:450
+				}
+			];
+			let canvas=document.querySelector('.canvas')
+			canvas.width=600;
+			canvas.height=500;
+			let ctx=canvas.getContext('2d');
+			
+			//标识柱形图的宽度
+			let width=50;
+			//计算间距
+			//(画布宽度-竹子的数量*50)/(柱子数量+1）
+			let distance=Math.ceil((canvas.width-width*dataset.length)/(dataset.length+1));
+			console.log(distance)
+			// ctx.fillStyle='#000';	
+			//设置文本字体样式
+			ctx.font='15px 微软雅黑'
+			//设置文本水平对齐方式
+			ctx.textAlign='center'
+			//循环绘制矩形
+			for(let n=0;n<dataset.length;n++){
+				//起点x轴，起点y轴,宽，高
+				let x=(n+1)*distance+n*width;
+				let y=canvas.height-dataset[n].value;
+				ctx.fillStyle=n%2 ? '#999':'#c23531';
+				ctx.fillRect(x,y,width,dataset[n].value)
+				ctx.fillStyle='#000';		
+				ctx.fillText(dataset[n].value,x+Math.ceil(width/2),y-10);
+			}
+			
+			
+		</script>
+	</body>
+</html>

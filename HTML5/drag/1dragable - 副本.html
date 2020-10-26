@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			#source,#target{
+				width:100px;
+				height:100px;
+				margin:10px auto;
+			}
+			#source{
+				border:1px solid #0AA1EB;
+			}
+			#target{
+				border: 1px solid #FF0000;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="source">
+			<a draggable="true" id="p" src="https://www.baidu.com">百度</>
+		</div>
+		<div id="target">
+			
+		</div>
+		<script>
+			let p=document.getElementById('p');
+			let div=document.getElementById('target');
+			
+			//为源对象添加dragstart事件
+			p.ondragstart=function(event){
+				let dt=event.dataTransfer;
+				dt.setData('link',event.target.innerHTML)
+			}
+			p.addEventListener('dragstart',(event)=>{
+				console.log('开始拖放')
+			});
+			//为原对象添加drag事件
+			p.addEventListener('drag',()=>{
+				console.log('拖拽')
+			})
+			//为目标对象添加dragenter事件
+			div.ondragenter=function(){
+				console.log('源对象进入目标范围')
+			}
+			//为目标对象添加dragover事件
+			div.ondragover=function(event){
+				event.preventDefault()
+				console.log('源对象在目标范围内悬停')
+			}
+			
+			//为目标对象添加draover事件
+			div.ondragleave=function(){
+				console.log('源对象脱离目标范围')
+			}
+			//为目标对象添加drop事件
+			div.ondrop=function(){
+				console.log('源对象在目标范围内释放了')
+			}
+			div.ondragend=function(){
+				console.log('源对象已经释放了')
+			}
+		</script>
+	</body>
+</html>

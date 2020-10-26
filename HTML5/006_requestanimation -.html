@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			.canvas{border:1px solid #666;}
+		</style>
+	</head>
+	<body>
+			<canvas  class="canvas"></canvas>
+			<script>
+			let canvas=document.querySelector('.canvas')
+			canvas.width=600;
+			canvas.height=500;
+			let ctx=canvas.getContext('2d');
+			let x=canvas.width;
+			//存储颜色的数组
+			let colors=['#c23531','#FAEBD7','#FFE4C4','#D2691E','#6495ED','#B8860B','#1E90FF','#ADFF2F'];
+			//初始化数组，在该数组内保存着弹幕信息
+			let info=[
+				{
+					text:'好吃',
+					speed:Math.ceil(Math.random()*3)+2,
+					color:colors[Math.floor(Math.random()*colors.length)],
+					x:canvas.width,
+					y:30
+				},
+				{
+					text:'好看',
+					speed:Math.ceil(Math.random()*3)+2,
+					color:colors[Math.floor(Math.random()*colors.length)],
+					x:canvas.width,
+					y:50
+				},
+				{
+					text:'好玩',
+					speed:Math.ceil(Math.random()*3)+2,
+					color:colors[Math.floor(Math.random()*colors.length)],
+					x:canvas.width,
+					y:70
+				},
+				{
+					text:'字幕组',
+					speed:Math.ceil(Math.random()*3)+2,
+					color:colors[Math.floor(Math.random()*colors.length)],
+					x:canvas.width,
+					y:90
+				},
+				
+					{
+						text:'炸鸡',
+						speed:Math.ceil(Math.random()*3)+2,
+						color:colors[Math.floor(Math.random()*colors.length)],
+						x:canvas.width,
+						y:110
+					},
+					{
+						text:'评论出人才',
+						speed:Math.ceil(Math.random()*3)+2,
+						color:colors[Math.floor(Math.random()*colors.length)],
+						x:canvas.width,
+						y:130
+					},				
+			]
+			console.log(info)
+			let xdis=1;
+			function animation(){
+				//先擦除整个画布后重新进行绘制操作
+				ctx.clearRect(0,0,canvas.width,canvas.height);
+				ctx.font='bold 16px 雅黑';
+				for(let n=0;n<info.length;n++){
+					let obj=info[n]
+					ctx.fillStyle=obj.color;
+					ctx.fillText(obj.text,obj.x,obj.y)
+					//x轴位置在原始基础上进行累减操作
+					obj.x-=obj.speed;
+					//获取到对象
+					let textMetrics=ctx.measureText(obj.text);
+					//利用此对象的width属性来获取文本内容的宽度
+					let textWidth=textMetrics.width;
+					if(obj.x<=-textWidth){
+						obj.x=canvas.width;
+					}
+				}
+				
+				window.requestAnimationFrame(animation);
+				
+			}
+			animation();
+			</script>
+	</body>
+</html>

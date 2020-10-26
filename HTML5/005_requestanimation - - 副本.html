@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			.canvas{border:1px solid #666;}
+		</style>
+	</head>
+	<body>
+			<canvas  class="canvas"></canvas>
+			<script>
+			let canvas=document.querySelector('.canvas')
+			canvas.width=600;
+			canvas.height=500;
+			let ctx=canvas.getContext('2d');
+			//动画效果
+			let x=0;
+			let y=0;
+			//当前x轴的移动距离
+			let xdis=1;
+				//当前y轴的移动距离
+			let ydis=3;
+			function animation(){
+				//先擦除整个画布后重新进行绘制操作
+				ctx.clearRect(0,0,canvas.width,canvas.height);
+				ctx.strokeRect(x,y,100,100);
+				ctx.fillText('中心',300,300);
+				x+=xdis;
+				y+=ydis;
+				if(x>=canvas.width-100){
+					xdis=-1;
+				}
+				if(x<=0){
+					xdis=1;
+				}
+				if(y>=canvas.height-100){
+					ydis=-3;
+				}
+				if(y<=0){
+					ydis=3;
+				}
+				//等待与显示器相同的刷新频率相同的时间后再次绘制动画的另外一边
+				window.requestAnimationFrame(animation);
+			}
+			animation();
+			</script>
+	</body>
+</html>

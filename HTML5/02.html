@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <audio src="audio/bad.mp3" controls id="audio"></audio>
+    <br>
+    <button onclick="changeaudio('audio/bad.mp3')">bad</button>
+    <button onclick="changeaudio('audio/stronger.mp3')">stronger</button>
+    <script>
+        function changeaudio(filepath){
+            let audio=document.getElementById('audio');
+            audio.src=filepath;
+        }
+    </script>
+</body>
+</html>

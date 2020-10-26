@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			.canvas{
+				border:1px solid #666;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas  class="canvas"></canvas>
+		<script>
+			let dataset=[
+				{
+					label:'服装',
+					value:300
+				},
+				{
+					label:'护肤',
+					value:400
+				},
+				{
+					label:'包包',
+					value:360
+				},
+				{
+					label:'运动',
+					value:420
+				}
+			];
+			let canvas=document.querySelector('.canvas')
+			canvas.width=600;
+			canvas.height=500;
+			let ctx=canvas.getContext('2d');
+			//通过beginPath()开始新路径
+			ctx.beginPath();
+			//确定起点坐标
+			ctx.moveTo(30,50);
+			//确定线段终（起）点
+			// ctx.lineTo(30,470);
+			// ctx.lineTo(200,470)
+			// ctx.lineTo(400,470)
+			//垂直坐标线
+			ctx.lineTo(30,canvas.height-50)
+			//水平坐标线
+			ctx.lineTo(canvas.width-30,canvas.height-50)
+			ctx.stroke();
+			//绘制柱形图
+			//标识柱形图的宽度
+			let width=50;
+			//计算间距
+			//(画布宽度-竹子的数量*50)/(柱子数量+1）
+			let distance=Math.ceil((canvas.width-60-width*dataset.length)/(dataset.length+1));
+			console.log(distance)
+			// ctx.fillStyle='#000';	
+			//设置文本字体样式
+			ctx.font='15px 微软雅黑'
+			//设置文本水平对齐方式
+			ctx.textAlign='center'
+			//循环绘制矩形
+			for(let n=0;n<dataset.length;n++){
+				//起点x轴，起点y轴,宽，高
+				let x=(n+1)*distance+n*width+30;
+				let y=canvas.height-dataset[n].value-51;
+				ctx.fillStyle=n%2 ? '#999':'#c23531';
+				ctx.fillRect(x,y,width,dataset[n].value)
+				ctx.fillStyle='#000';		
+				ctx.fillText(dataset[n].value,x+Math.ceil(width/2),y-10);
+				//绘制标签文本
+				
+				ctx.fillText(dataset[n].label,x+Math.ceil(width/2),canvas.height-30)
+			}
+			
+		</script>
+	</body>
+</html>

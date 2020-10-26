@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			.canvas{
+				border:1px solid #0AA1EB;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas  class="canvas"></canvas>
+		<script>
+			let canvas=document.querySelector('.canvas')
+			canvas.width=600;
+			canvas.height=400;
+			let ctx=canvas.getContext('2d');
+			ctx.font='40px Microdsoft Yahei';
+			ctx.strokeStyle='red';
+			ctx.strokeText('canvas画布',100,100)
+			ctx.fillStyle='black';
+			ctx.font='bold italic 50px';
+			ctx.fillText('canvas画布',100,200)
+			
+			
+			
+		</script>
+	</body>
+</html>

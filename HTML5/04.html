@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .container{
+			position:relative;
+        width:640px;
+        height:360px;
+        margin:0 auto;
+        border:1px solid #ccc;
+    }
+		#ad{
+			position: absolute;
+			width:400px;
+			height:300px;
+			z-index:2;
+			left:50%;
+			top:0;
+			margin-left:-200px;
+			background: red;
+		}
+    .controls button{
+        border:none;
+        background:#1CB5EF;
+        outline:none;
+        display: inline-block;
+        font-size:12px;
+        border-radius:3px;
+        color: #fff;
+    }
+		#progress{
+			position: relative;
+			width:640px;
+			height:5px;
+			background:#999;
+		}
+		#progress_inner{
+			height:5px;
+			position: absolute;
+			background: #1CB5EF;
+			width:0px;
+			top:0;
+			left:0;
+		}
+		#mask{
+			position: absolute;
+			width:640px;
+			height:360px;
+			background:transparent;
+			z-index:10;
+		}
+</style>
+<body>
+   <div class="container">
+		 <div id="ad">
+		 	<img src="ad/0D0100005E2EF493395059357930375A.jpg" >
+		 </div>
+		 <div id="mask"></div>
+       <video src="video/video.mp4" id="video" width="640" height="360" controls></video>
+			 <div id="progress">
+			 	<div id="progress_inner">
+			 		
+			 	</div>
+			 </div>
+       <div class="controls">
+           <span id="currentTime"></span>/
+					  <span id="duration"></span>
+        <button onclick="playOrPause()">播放/暂停</button>
+        <button onclick="increamentPause()">增大音量</button>
+        <button onclick="decPause()">减少音量</button>
+        <button onclick="changeplaybackRate('0.5')">0.5倍速</button>
+        <button onclick="changeplaybackRate('1.0')">1.0倍速</button>
+        <button onclick="changeplaybackRate('1.5')">1.5倍速</button>
+        <button onclick="changeplaybackRate('2.0')">2.0倍速</button>
+				<button onclick="enterFullscreen()">进入全屏</button>
+				<button onclick="exitFullscreen()">退出全屏</button>
+       </div>
+   </div> 
+   <script>
+		 //获取视频对象
+		  let video=document.getElementById('video');
+		 let array=[
+			 '0D0100005E0DB3591241923143384738.jpg',
+			 '0D0100005E2EF493395059357930375A.jpg',
+			 '0D0100005E4DDCB31126293290574D55.jpg',
+			 '0D0100005E40CB833950593579383235.jpg',
+			 '0D0100005E4149B13950593579363944.jpg'
+		 ];
+		 //暂停时显示广告位
+		 video.addEventListener('pause',()=>{
+			 document.getElementById('ad').style.display='block';
+			 let filename=array[Math.floor(Math.random()*array.length)];
+			 document.getElementById('ad').getElementsByTagName('img')[0].src='ad/'+filename});
+		 
+		 //播放时隐藏广告位
+		 video.addEventListener('play',()=>{
+			 document.getElementById('ad').style.display='none';
+		 })
+		 
+		 //进入全屏
+		 function enterFullscreen(){
+			 //获取容器对象
+			 let container=document.querySelector('.container')
+			 // let container=document.getElementsByClassName('container')
+			 //播放器容器对象进入全屏
+			 container.requestFullscreen()
+		 }
+		 //退出全屏
+		 function exitFullscreen(){
+			 document.exitFullscreen();
+		 }
+		 
+			//loaddata事件在第一帧加载后触发，意味着视频的宽度、高度以及总时长等数据，所以在loadeddata时间内获取总时长等相关信息
+			video.addEventListener('loadeddata',()=>{
+				//获取媒体当前播放时间
+				let currentTime=video.currentTime;
+				document.getElementById('currentTime').innerText=currentTime;
+				//获取媒体的总时长
+				let duration=parseInt(video.duration);
+				document.getElementById('duration').innerText=duration;
+			})
+			//实时获取媒体的当前播放时间
+			//ontimeupdate事件在当前播放时间更新时被触发
+			video.addEventListener('timeupdate',()=>{
+				let currentTime=parseInt(video.currentTime);
+				let duration=parseInt(video.duration);
+				document.getElementById('currentTime').innerText=currentTime;
+				document.getElementById('progress_inner').style.width = 640 * currentTime / duration + 'px';
+				})
+			
+       //播放速率
+       function changeplaybackRate(value){
+            value=parseFloat(value); 
+            video.playbackRate=value;
+       }
+       //实现媒体的播放、暂停
+       function playOrPause(){
+           //无论正常的暂停还是播放完的暂停
+           if(video.paused || video.ended){
+               //视频对象播放
+                video.play();
+           }else{
+               //视频对象暂停
+            video.pause();
+           }
+       }
+       //增大音量
+       function increamentPause(){   
+           video.volume=Math.min(1,video.volume+0.1);
+           console.log(video.volume)
+       }
+       //减少音量
+       function decPause(){
+        video.volume=Math.max(0,video.volume-0.1);
+        console.log(video.volume)
+       }
+   </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			#container{
+				width:600px;
+				margin:0 auto;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="container">
+			<p>请输入数字<input type="text" name="" id="number" /></p>
+			<p><input type="button" name="" id="" value="计算"  onclick="compute()"/></p>
+			<p><span id="result"></span></p>
+		</div>
+		<script>
+			function compute(){
+				//获取输入框信息
+				let number=document.getElementById('number').value;
+				//创建web worker线程
+				let worker=new Worker('scripts/worker.js');
+			
+			//向worker线程发送消息
+			worker.postMessage(number);
+			//监听worker的message事件，只要监听到事件，代表worker线程已完成任务
+			worker.addEventListener('message',(event)=>{
+				document.getElementById('result').innerHTML=event.data
+			});
+			}
+			window.setInterval(()>{
+				console.log(Math.random())
+			},20)
+		</script>
+	</body>
+</html>

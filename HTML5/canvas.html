@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<style>
+		#canvas{
+			border:1px solid #0AA1EB;
+		}
+	</style>
+	<body>
+		<canvas id="canvas"></canvas>
+		<script>
+			
+			let canvas=document.getElementById('canvas')
+			//设置宽度
+			canvas.width=500;
+			//设置高度
+			canvas.height=500;
+			console.log(canvas.width)
+			//获取上下文
+			let ctx=canvas.getContext('2d');
+			console.log(ctx)
+			//设置描边颜色
+			ctx.strokeStyle='#0AA1EB'
+			//绘制描边矩形
+			ctx.strokeRect(100,100,150,50)
+			//设置填充颜色
+			ctx.fillStyle='red'
+			//绘制填充矩形
+			ctx.fillRect(100,200,150,50)
+			//绘制描边文本
+			ctx.strokeText('下课了',100,300)
+			//绘制填充文本
+			ctx.fillText('开心',100,400)
+			
+		</script>
+	</body>
+</html>

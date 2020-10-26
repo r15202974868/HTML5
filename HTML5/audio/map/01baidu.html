@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>百度地图</title>
+		<style>
+			#container{
+				width:300px;
+				height:300px;
+				border:1px solid #1CB5EF;
+				margin:0 auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="container"></div>
+		<script src="http://api.map.baidu.com/api?v=3.0&ak=Y7AaRPICljuKF3XUchN8kzNfojxmBRR7">	</script>
+		<script>
+			// //通过html元素
+			// let div=document.getElementById('container')
+			// let map=new BMap.Map(div)
+			//创建地图实例（通过字符串string）
+				let map=new BMap.Map('container')
+				//设置地图实例坐标中心及展示级别--省。自治区，直辖市名称
+				// map.centerAndZoom('陕西',7); 或者 map.centerAndZoom('陕西')
+				//利用拾取器创建三亚市坐标点
+				let point=new BMap.Point(109.517123,18.259835);
+				//设置地图实例的坐标中心及展示级别实例
+				map.centerAndZoom(point,12);
+				//禁止地图拖拽gognn
+						// map.disableDragging()
+						//启动鼠标滚动时缩放图
+						map.enableScrollWheelZoom();
+						
+						//禁止鼠标滚动缩放图（默认禁止）
+						// map.disableScrolWheelZoom();
+						//创建size对象，用来控制缩放平移的距离
+						let size=new BMap.Size(20,20)
+						//创建navigation（）控件
+						let nc=new BMap.NavigationControl(
+						{
+							//控件停靠位置(左上角)
+							anchor:BMAP_ANCHOR_TOP_LEFT,
+							//距离容易左上部的距离
+							offset:size,
+							//控件平移缩放样式
+							type:BMAP_NAVIGATION_CONTROL_LARGE,
+							
+						})
+						//添加navigationcontrol()平移缩放控件
+						map.addControl(nc);
+					
+					
+				
+		</script>
+	</body>
+</html>
